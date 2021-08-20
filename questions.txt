@@ -1,0 +1,4 @@
+https://leetcode.com/problems/product-of-array-except-self/
+https://leetcode.com/problems/spiral-matrix/
+https://codeforces.com/problemset/problem/492/B
+https://codeforces.com/contest/489/problem/B
