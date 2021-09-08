@@ -79,6 +79,7 @@ public class F
 		}
 		
 		int data = sc.nextInt(), pos = sc.nextInt();
+        sc.close();
 		list = list.insertAtPos(list,data,pos);
 		list.printList(list);
 	}

@@ -94,7 +94,7 @@ public class B
  //comment
 
 		    }
-		    
+		    sc.close();
 		    LinkedList sortedList = mergeLinkedList(l1,l2);
 		    sortedList.printList();
 		    System.out.println();

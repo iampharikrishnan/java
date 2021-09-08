@@ -1,4 +1,4 @@
-import stati.*;
+// import stati.*;
 
 /**
  * stat
@@ -11,7 +11,7 @@ public class stat {
         test t=new test();
         t.setId(10);
         t.id=10;
-        pack p = new pack();
+        // pack p = new pack();
     }
 }
 
