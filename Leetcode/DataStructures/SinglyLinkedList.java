@@ -37,8 +37,14 @@ public class SinglyLinkedList<T> {
         }
         public void setNext(Node<T> next) {
             this.next = next;
+        }        
+    }
+    public void add(T data){
+        if(this.head==null){
+            this.head = new Node<>(data);
         }
-        
-        
+        else{
+            
+        }
     }
 }
