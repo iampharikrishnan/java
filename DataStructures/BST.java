@@ -1,8 +1,11 @@
 package DataStructures;
 
+import java.util.Scanner;
+
 public class BST {
     private Node root;
 
+    // This is node for BST
     private class Node {
         private int data;
         private Node left;
@@ -34,17 +37,17 @@ public class BST {
             this.right = right;
         }
 
-        public boolean hasRightSubtree(){
+        public boolean hasRightSubtree() {
             return this.right != null;
         }
 
-        public boolean hasLeftSubtree(){
+        public boolean hasLeftSubtree() {
             return this.left != null;
         }
 
-        public boolean isLeafNode(){
-            return !(hasLeftSubtree() || hasRightSubtree());
-        }
+        // public boolean isLeafNode() {
+        //     return !(hasLeftSubtree() || hasRightSubtree());
+        // }
     }
 
     // Constructors of BST
@@ -79,43 +82,110 @@ public class BST {
     }
 
     public boolean removeNode(int data) {
-        Node loopNode = root;
-        
-        if (loopNode != null) {
-            while (loopNode.getData() != data) {
-                loopNode = (data > loopNode.getData()) ? loopNode.getRight() : loopNode.getLeft();
-            }
-            if(loopNode.isLeafNode()){
-                
-            }
-            // minOfSubtree(loopNode.getRight());
-
-        }
-        return true;
+        return (removeNodeOfSubtree(data, root) != null);
     }
 
-    private boolean removeNodeOfSubtree(){
-        Node loopNode = root;
-        
-        if (loopNode != null) {
-            while (loopNode.getData() != data) {
-                loopNode = (data > loopNode.getData()) ? loopNode.getRight() : loopNode.getLeft();
-            }
-            
-            if(loopNode.getLeft()==null
+    private Node removeNodeOfSubtree(int data, Node subtreeRootNode) {
 
+        if (subtreeRootNode != null) {
+            if (subtreeRootNode.data > data) {
+                subtreeRootNode.setRight(removeNodeOfSubtree(data, subtreeRootNode.getLeft()));
+            } else if (subtreeRootNode.data > data) {
+                subtreeRootNode.setLeft(removeNodeOfSubtree(data, subtreeRootNode.getRight()));
+            } else {
+                if (!subtreeRootNode.hasLeftSubtree())
+                    return subtreeRootNode.getRight();
+                if (!subtreeRootNode.hasRightSubtree())
+                    return subtreeRootNode.getLeft();
+                int minValue = minOfSubtree(subtreeRootNode.getRight());
+                subtreeRootNode.setRight(removeNodeOfSubtree(minValue, subtreeRootNode));
+            }
         }
-        return true;
+
+        return subtreeRootNode;
     }
 
-    private Node minOfSubtree(Node subtreeRootNode) {
+    public int minValue(){
+        return minOfSubtree(this.root);
+    }
+
+    private int minOfSubtree(Node subtreeRootNode) {
         Node minNode = subtreeRootNode;
 
         while (minNode != null && minNode.getLeft() != null) {
             minNode = minNode.getLeft();
         }
 
-        return minNode;
+        return minNode.data;
+    }
+
+    public int maxValue(){
+        return maxOfSubtree(this.root);
+    }
+
+    private int maxOfSubtree(Node subtreeRootNode) {
+        Node minNode = subtreeRootNode;
+
+        while (minNode != null && minNode.hasRightSubtree()) {
+            minNode = minNode.getRight();
+        }
+
+        return minNode.data;
+    }
+
+    public void traverse(){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Please choose how to traverse: ");
+        System.out.println("1. Inorder traversal");
+        System.out.println("2. Preorder traversal");
+        System.out.println("3. Postorder traversal");
+
+        int choice = sc.nextInt();
+
+        switch (choice) {
+            case 1: inorderTraversal(this.root);
+                break;
+
+            case 2: preorderTraversal(this.root);
+                break;
+
+            case 3: postorderTraversal(this.root);
+                break;
+        
+            default:
+                System.out.println("Entered choice was invalid.");
+        }
+
+        sc.close();
+
+    }
+
+    private void inorderTraversal(Node subtreeRoot){
+        
+        if( subtreeRoot != null){
+            inorderTraversal(subtreeRoot.getLeft());
+            System.out.println(subtreeRoot.getData());
+            inorderTraversal(subtreeRoot.getRight());
+        }
+    }
+
+    private void preorderTraversal(Node subtreeRoot){
+        
+        if( subtreeRoot != null){
+            System.out.println(subtreeRoot.getData());
+            preorderTraversal(subtreeRoot.getLeft());
+            preorderTraversal(subtreeRoot.getRight());
+        }
+    }
+
+    private void postorderTraversal(Node subtreeRoot){
+        
+        if( subtreeRoot != null){
+            postorderTraversal(subtreeRoot.getLeft());
+            postorderTraversal(subtreeRoot.getRight());
+            System.out.println(subtreeRoot.getData());
+        }
     }
 
 }
