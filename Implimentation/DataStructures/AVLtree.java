@@ -71,8 +71,76 @@ public class AVLtree {
         return x;
     }
 
-    public boolean deleteNode(){
-        return false;
+    public boolean delete(int data){
+        return (deleteNode(this.root,data)!=null);
+    }
+
+    private Node deleteNode(Node subtreeRoot, int data) {
+        // STEP 1: PERFORM STANDARD BST DELETE
+        if (root == null)
+            return root;
+ 
+        // If the key to be deleted is smaller than
+        // the root's key, then it lies in left subtree
+        if (data < subtreeRoot.data)
+            root.left = deleteNode(root.left, subtreeRoot.data);
+ 
+        // If the key to be deleted is greater than the
+        // root's key, then it lies in right subtree
+        else if (data > subtreeRoot.data)
+            root.right = deleteNode(root.right, subtreeRoot.data);
+ 
+        // if key is same as root's key, then this is the node
+        // to be deleted
+        else
+        {
+            if(subtreeRoot.left==null)
+                return subtreeRoot.right;
+            else if(subtreeRoot.right == null)
+                return subtreeRoot.left;
+            else{
+                int succosser = minValueNode(subtreeRoot);
+                subtreeRoot.data = succosser;
+                subtreeRoot.right = deleteNode(subtreeRoot, succosser);
+            }
+        }
+
+        subtreeRoot.updateHeight();
+        int balanceFactor = subtreeRoot.getBalanceFactor();
+
+        if (balanceFactor > 1 && root.left.getBalanceFactor() >= 0)
+        return rightRotation(root);
+
+    // Left Right Case
+    if (balanceFactor > 1 && root.left.getBalanceFactor() < 0)
+    {
+        root.left = leftRotation(root.left);
+        return rightRotation(root);
+    }
+
+    // Right Right Case
+    if (balanceFactor < -1 && root.right.getBalanceFactor() <= 0)
+        return leftRotation(root);
+
+    // Right Left Case
+    if (balanceFactor < -1 && root.right.getBalanceFactor() > 0)
+    {
+        root.right = rightRotation(root.right);
+        return leftRotation(root);
+    }
+
+    return root;
+    }
+
+
+    private int minValueNode(Node subtreeRootNode) {
+        Node minNode = subtreeRootNode;
+
+        while (minNode != null && minNode.left != null) {
+            minNode = minNode.left;
+        }
+
+        return minNode.data;
     }
 
     public void inorderTraversal(Node subtreeRoot){
