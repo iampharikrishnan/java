@@ -1,4 +1,4 @@
-package DataStructures;
+package Implimentation.DataStructures;
 
 import java.util.Scanner;
 
