@@ -10,8 +10,22 @@ public class Deque {
             rear = front;
         }
         else{
-            front = new Node(data,front);
+            Node node = front;
+            front = new Node(data,node);
             front.next.previous = front;
+        }
+        return true;
+    }
+
+    public boolean insertRear(int data){
+        if(rear==null){
+            front = new Node(data);
+            rear = front;
+        }
+        else{
+            Node node = rear;
+            rear = new Node(data,node);
+            rear.previous.next = rear;
         }
         return true;
     }
