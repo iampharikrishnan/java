@@ -16,5 +16,6 @@ public class Solution {
         for(int i=0;i<sl.size();i++){
             System.out.print(sl.get(i)+" ");
         }
+
     }
 }

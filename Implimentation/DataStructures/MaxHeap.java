@@ -1,5 +1,38 @@
 package Implimentation.DataStructures;
 
+import java.util.Iterator;
+import java.util.PriorityQueue;
+
+public class MaxHeap implements Iterable<Integer>{
+    PriorityQueue<Integer> pQueue = new PriorityQueue<Integer>();
+
+    public boolean add(int data){
+        pQueue.add(data);
+        return true;
+    }
+
+    public int peek(){
+        return pQueue.peek();
+    }
+
+    public boolean remove(int data){
+        return pQueue.remove(data);
+    }
+
+    public boolean contains(int data){
+        return pQueue.contains(data);
+    }
+
+    @Override
+    public Iterator<Integer> iterator() {
+        return pQueue.iterator();
+    }
+
+
+
+}
+
+/* Implimenting heap using array
 public class MaxHeap {
     private int[] Heap;
     private int size;
@@ -90,4 +123,4 @@ public class MaxHeap {
         maxHeapify(1);
         return popped;
     }
-}
+}*/
