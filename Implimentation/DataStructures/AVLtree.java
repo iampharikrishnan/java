@@ -4,16 +4,18 @@ public class AVLtree {
     Node root;
 
     public boolean insert(int data){
-        return (insertNode(this.root, new Node(data))!=null);
+        if(this.contains(data)) return false;
+        this.root = insert(this.root, new Node(data));
+        return true;
     }
 
-    private Node insertNode(Node subtreeRoot,Node newNode) {
+    private Node insert(Node subtreeRoot,Node newNode) {
         if(subtreeRoot==null)
             return newNode;
         else if(subtreeRoot.data>newNode.data)
-            subtreeRoot.left=insertNode(subtreeRoot.left, newNode);
+            subtreeRoot.left=insert(subtreeRoot.left, newNode);
         else if(subtreeRoot.data>newNode.data)
-            subtreeRoot.right=insertNode(subtreeRoot.right, newNode);
+            subtreeRoot.right=insert(subtreeRoot.right, newNode);
         else //duplicate key not allowed
             return subtreeRoot;
 
@@ -39,6 +41,17 @@ public class AVLtree {
         }
         
         return subtreeRoot;
+    }
+
+    public boolean contains(int data){
+        return this.contains(this.root, data);
+    }
+
+    private boolean contains(Node subRoot,int data){
+        if(subRoot==null) return false;
+        if(subRoot.data == data) return true;
+        Node next = (subRoot.data>data)?subRoot.left:subRoot.right;
+        return contains(next, data);
     }
 
     private Node rightRotation(Node node) {
@@ -72,10 +85,12 @@ public class AVLtree {
     }
 
     public boolean delete(int data){
-        return (deleteNode(this.root,data)!=null);
+        if(!this.contains(data)) return false;
+        this.root = delete(this.root,data);
+        return true;
     }
 
-    private Node deleteNode(Node subtreeRoot, int data) {
+    private Node delete(Node subtreeRoot, int data) {
         // STEP 1: PERFORM STANDARD BST DELETE
         if (root == null)
             return root;
@@ -83,12 +98,12 @@ public class AVLtree {
         // If the key to be deleted is smaller than
         // the root's key, then it lies in left subtree
         if (data < subtreeRoot.data)
-            root.left = deleteNode(root.left, subtreeRoot.data);
+            root.left = delete(root.left, subtreeRoot.data);
  
         // If the key to be deleted is greater than the
         // root's key, then it lies in right subtree
         else if (data > subtreeRoot.data)
-            root.right = deleteNode(root.right, subtreeRoot.data);
+            root.right = delete(root.right, subtreeRoot.data);
  
         // if key is same as root's key, then this is the node
         // to be deleted
@@ -101,7 +116,7 @@ public class AVLtree {
             else{
                 int succosser = minValueNode(subtreeRoot);
                 subtreeRoot.data = succosser;
-                subtreeRoot.right = deleteNode(subtreeRoot, succosser);
+                subtreeRoot.right = delete(subtreeRoot, succosser);
             }
         }
 
