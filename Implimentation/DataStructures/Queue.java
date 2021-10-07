@@ -20,6 +20,7 @@ public class Queue {
         if(rear==null) return Integer.MIN_VALUE;
         Node node = rear;
         rear = rear.previous;
+        rear.next = null;
         return node.data; 
     }
 

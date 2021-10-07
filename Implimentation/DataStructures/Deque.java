@@ -34,13 +34,15 @@ public class Deque {
         if(rear==null) return Integer.MIN_VALUE;
         Node node = rear;
         rear = rear.previous;
+        rear.next=null;
         return node.data; 
     }
 
     public int pop(){
         if(front==null) return Integer.MIN_VALUE;
         Node node = front;
-        front = front.previous;
+        front = front.next;
+        front.previous = null;
         return node.data; 
     }
 
