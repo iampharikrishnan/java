@@ -57,12 +57,6 @@ public class DoublyLinkedList {
         return true;
     }
 
-    // private Node add(Node node, Node newNode){
-    //     if(node == null || node.next==null) return newNode;
-    //     node.next = add(node.next, newNode);
-    //     return node;
-    // }
-
     public boolean remove(int data){
         if(!this.contains(data)) return false;
         this.head = remove(this.head, data);
@@ -78,8 +72,6 @@ public class DoublyLinkedList {
         return node; 
 
     }
-
-    
 
     public boolean contains(int data) {
         return contains(this.head,data);
