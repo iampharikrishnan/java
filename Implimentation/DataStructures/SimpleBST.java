@@ -18,19 +18,19 @@ public class SimpleBST {
 
     public void insertNode(int data) {
         Node loopNode = this.root;
-        Node lastNode = null;
+        Node previousNode = null;
 
         if (loopNode == null) {
             root = new Node(data);
         } else {
             while (loopNode != null) {
-                lastNode = loopNode;
+                previousNode = loopNode;
                 loopNode = (loopNode.data > data) ? loopNode.left : loopNode.right;
             }
-            if (data > lastNode.data)
-                lastNode.right = new Node(data);
-            else if (data < lastNode.data)
-                lastNode.left = new Node(data);
+            if (data > previousNode.data)
+                previousNode.right = new Node(data);
+            else if (data < previousNode.data)
+                previousNode.left = new Node(data);
         }
     }
 
